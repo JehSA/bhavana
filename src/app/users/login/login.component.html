@@ -1,14 +1,14 @@
 <h1><strong>Welcome to Bhavana desktop</strong></h1>
 <div>
-  <form class="example-form">
+  <form class="example-form" (submit)="onLoginEmailPassword()">
     <mat-form-field >
       <mat-label>E-mail</mat-label>
-      <input matInput type="email" placeholder="Ex. user@example.com">      
+      <input [(ngModel)]="email" name="email" matInput type="email" placeholder="Ex. user@example.com">      
     </mat-form-field>
     <br>
     <mat-form-field>
       <mat-label>Password</mat-label>
-      <input matInput type="password" placeholder="Enter your password">
+      <input [(ngModel)]="password" name="pass" matInput type="password" placeholder="Enter your password">
     </mat-form-field>
     <br>
     <button mat-stroked-button>
@@ -16,4 +16,3 @@
     </button>
   </form>
 </div>
-

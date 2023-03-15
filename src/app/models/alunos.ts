@@ -1,0 +1,21 @@
+export interface AlunoInterface {
+    id: string,
+    nome: string,
+    unidade?: string,
+    status?: string,
+    plano?: string,
+    dataMatricula?: string,
+    dataNascimento?: string,
+    sexo?: string,
+    rg?: string,
+    cpf?: string,
+    endereco?: string,
+    numero?: string,
+    cep?: string,
+    bairro?: string,
+    cidade?: string,
+    uf?: string,
+    email?: string,
+    celular?: string,
+    telefone?: string 
+}
