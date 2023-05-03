@@ -41,8 +41,8 @@ export class AlunosService  {
     return this.afs.collection('alunos').doc(id).update(aluno);
   }
 
-  deleteAluno() {
-
+  deleteAluno(id: string): Promise<any> {
+    return this.afs.collection('alunos').doc(id).delete();
   }
 
 }

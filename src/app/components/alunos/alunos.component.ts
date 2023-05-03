@@ -13,7 +13,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class AlunosComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'email', 'edit'];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'actions'];
   dataSource!: MatTableDataSource<AlunoInterface>;
 
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
@@ -50,6 +50,11 @@ export class AlunosComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  deleteAluno(id: string) {
+    this.alunoService.deleteAluno(id).then(() => {
+    });
   }
 
 }
