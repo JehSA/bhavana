@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AlunosService } from 'src/app/services/alunos.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlunoInterface } from 'src/app/models/alunos';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -11,7 +11,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   templateUrl: './alunos.component.html',
   styleUrls: ['./alunos.component.scss']
 })
-export class AlunosComponent implements OnInit, AfterViewInit {
+export class AlunosComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nome', 'email', 'edit'];
   dataSource!: MatTableDataSource<AlunoInterface>;
@@ -32,10 +32,6 @@ export class AlunosComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getAllAlunos();
-  }
-
-  ngAfterViewInit(): void { 
-    
   }
 
   getAllAlunos() {

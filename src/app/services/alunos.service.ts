@@ -18,7 +18,6 @@ export class AlunosService  {
     this.alunos = this.alunosCollection.valueChanges();    
   }
 
-
   getAllAlunos() {
     return this.alunos = this.alunosCollection.snapshotChanges()
     .pipe(map(changes => {      

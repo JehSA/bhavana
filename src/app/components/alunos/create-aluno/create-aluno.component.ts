@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AlunoInterface } from 'src/app/models/alunos';
 import { AlunosService } from 'src/app/services/alunos.service';
 
 @Component({
@@ -11,14 +10,10 @@ import { AlunosService } from 'src/app/services/alunos.service';
 })
 export class CreateAlunoComponent implements OnInit {
 
-  submitted = false;
   id: any;
 
-  constructor(private aln: AlunosService, 
-              private aRoute: ActivatedRoute
-  ) {
+  constructor(private aln: AlunosService, private aRoute: ActivatedRoute) {
     this.id = this.aRoute.snapshot.paramMap.get('id');
-    console.log(this.aln)    
   }
 
   public newPostForm = new FormGroup({
@@ -35,8 +30,7 @@ export class CreateAlunoComponent implements OnInit {
   }
 
   editAluno(id: string, aluno: any) {
-    this.aln.updateAluno(id, aluno)
-    console.log(this.aln)
+    this.aln.updateAluno(id, aluno);
   }
 
   newEditAluno(aluno: any, id: any) {
@@ -46,7 +40,7 @@ export class CreateAlunoComponent implements OnInit {
     if(this.id === null) {
       this.aln.saveAluno(aluno);
     }else{
-      this.aln.updateAluno(id, aluno)
+      this.aln.updateAluno(id, aluno);
     }
 
   }
@@ -61,17 +55,6 @@ export class CreateAlunoComponent implements OnInit {
         });
       });
     }
-  }
-
-  newAndEditAluno() {
-    //if(this.newPostForm.invalid){
-    //  return;
-    //}
-    //if(this.id === null) {
-    //  this.adicionarLivro();
-    //}else{
-    //  this.editarLivro(this.id);
-    //}
   }
 
 }
