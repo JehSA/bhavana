@@ -1,1 +1,19 @@
-<p>create-aluno works!</p>
+<div class="new-post-container">
+    <form [formGroup]="newPostForm">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome">
+      </mat-form-field>
+      <div class="container-button" *ngIf="!id">
+        <input type="submit" class="mat-flat-button" value="Save"  (click)="newAluno(newPostForm.value)">
+      </div>
+      <div class="container-button" *ngIf="id">
+        <input type="submit" class="mat-flat-button" value="Edit"  (click)="editAluno(id, newPostForm.value)">
+      </div>
+    </form>
+</div>  

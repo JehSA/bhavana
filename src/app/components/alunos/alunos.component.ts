@@ -13,7 +13,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class AlunosComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'email'];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'edit'];
   dataSource!: MatTableDataSource<AlunoInterface>;
 
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;

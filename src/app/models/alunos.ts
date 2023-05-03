@@ -1,6 +1,6 @@
 export interface AlunoInterface {
-    id: string,
-    nome: string,
+    id?: string,
+    nome?: string,
     unidade?: string,
     status?: string,
     plano?: string,

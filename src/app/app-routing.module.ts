@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'alunos', component: AlunosComponent },
   { path: 'professores', component: ProfessoresComponent },
-  { path: 'create-aluno', component: CreateAlunoComponent }
+  { path: 'create-aluno', component: CreateAlunoComponent },
+  { path: 'edit-aluno/:id', component: CreateAlunoComponent }
 ];
 
 @NgModule({

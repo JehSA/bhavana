@@ -28,14 +28,18 @@ export class AlunosService  {
         return data;
       });    
     }));
-  }  
-
-  addAluno() {
-
+  }
+  
+  getAlunoById(id: string): Observable<any> {
+    return this.afs.collection('alunos').doc(id).snapshotChanges();
   }
 
-  updateAluno() {
+  saveAluno(aluno: any): Promise<any> {
+    return this.afs.collection('alunos').add(aluno);
+  }
 
+  updateAluno(id: string, aluno: any): Promise<any> {
+    return this.afs.collection('alunos').doc(id).update(aluno);
   }
 
   deleteAluno() {
