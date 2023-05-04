@@ -20,30 +20,36 @@ import { environment } from 'src/environments/environment';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
-// Modules from App
+// Components from App
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './users/login/login.component';
-import { ProfileComponent } from './users/profile/profile.component';
-import { RegisterComponent } from './users/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { AlunosComponent } from './components/alunos/alunos.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { ProfessoresComponent } from './components/professores/professores.component';
 import { CreateAlunoComponent } from './components/alunos/create-aluno/create-aluno.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterUserComponent } from './auth/register-user/register-user.component';
+import { MailVerifyComponent } from './auth/mail-verify/mail-verify.component';
+import { RecoverPasswordComponent } from './auth/recover-password/recover-password.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    ProfileComponent,
-    RegisterComponent,
     HomeComponent,
     AlunosComponent,
     HeaderComponent,
     ProfessoresComponent,
-    CreateAlunoComponent
+    CreateAlunoComponent,
+    LoginComponent,
+    RegisterUserComponent,
+    MailVerifyComponent,
+    RecoverPasswordComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +67,8 @@ import { CreateAlunoComponent } from './components/alunos/create-aluno/create-al
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [AngularFireAuth, AngularFirestore],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlunosService } from 'src/app/services/alunos.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlunoInterface } from 'src/app/models/alunos';

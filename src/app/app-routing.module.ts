@@ -3,21 +3,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { AlunosComponent } from './components/alunos/alunos.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfessoresComponent } from './components/professores/professores.component';
-import { LoginComponent } from './users/login/login.component';
-import { ProfileComponent } from './users/profile/profile.component';
-import { RegisterComponent } from './users/register/register.component';
 import { CreateAlunoComponent } from './components/alunos/create-aluno/create-aluno.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterUserComponent } from './auth/register-user/register-user.component';
+import { MailVerifyComponent } from './auth/mail-verify/mail-verify.component';
+import { RecoverPasswordComponent } from './auth/recover-password/recover-password.component';
 
 const routes: Routes = [
-  { path: '', component:LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'register-user', component: RegisterUserComponent },
+  { path: 'mail-verify', component: MailVerifyComponent },
+  { path: 'recover-password', component: RecoverPasswordComponent },
   { path: 'home', component: HomeComponent },
   { path: 'alunos', component: AlunosComponent },
   { path: 'professores', component: ProfessoresComponent },
   { path: 'create-aluno', component: CreateAlunoComponent },
-  { path: 'edit-aluno/:id', component: CreateAlunoComponent }
+  { path: 'edit-aluno/:id', component: CreateAlunoComponent },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

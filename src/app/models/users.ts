@@ -1,6 +1,10 @@
+export type Roles = 'SUBSCRIBER' | 'EDITOR' | 'ADMIN';
+
 export interface UserInterface {
-    id?: string,
+    id: string,
     name?: string,
-    email?: string,
+    email: string,
     password?:string,
+    emailVerified: boolean,
+    role?: Roles
 }
