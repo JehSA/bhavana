@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FirebaseCodeErrorsService } from 'src/app/services/firebase-code-errors.service';
+import { initializeApp } from "firebase-admin/app";
+import * as admin from 'firebase-admin';
 
 @Component({
   selector: 'app-register-user',
@@ -14,7 +16,7 @@ export class RegisterUserComponent implements OnInit {
 
   registerUser: FormGroup;
 
-  loading: boolean = false;
+  loading: boolean = false;  
 
   constructor(
     private fb: FormBuilder, 
@@ -45,13 +47,23 @@ export class RegisterUserComponent implements OnInit {
     
     this.loading = true;
     this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
-      this.loading = false;
+      /*this.loading = false;
       this.openSnackBarSucess();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login']);*/
+      this.verifyUser();
     }).catch((error) => {
       this.loading = false;
       this.openSnackBarFail(this.firebaseError.firebaseCodeErrors(error.code));
     })
+  }
+
+  verifyUser() {
+    this.afAuth.currentUser.then(user => user?.sendEmailVerification())
+      .then(() => {
+        this.loading = false;
+        this.openSnackBarInfo();
+        this.router.navigate(['/login']);
+      });
   }
 
   openSnackBarFail(message: string) {
@@ -63,12 +75,12 @@ export class RegisterUserComponent implements OnInit {
     });
   }
 
-  openSnackBarSucess() {
+  openSnackBarInfo() {
     this._snackBar.open('Usuário cadastrado! Aguarge a liberação do administrador.', '', {
       duration: 5000,
       horizontalPosition: 'right',
       verticalPosition: 'top',
-      panelClass: ['snackBarSucess']
+      panelClass: ['snackBarInfo']
     });
   }
 
