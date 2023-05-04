@@ -24,7 +24,7 @@ export class RecoverPasswordComponent implements OnInit {
     private firebaseError: FirebaseCodeErrorsService
   ) { 
     this.userRecover = this.fb.group({
-      email: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
