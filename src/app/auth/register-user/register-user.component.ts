@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { FirebaseCodeErrorsService } from 'src/app/services/firebase-code-errors.service';
 
 @Component({
   selector: 'app-register-user',
@@ -11,7 +14,15 @@ export class RegisterUserComponent implements OnInit {
 
   registerUser: FormGroup;
 
-  constructor(private fb: FormBuilder, private afAuth: AngularFireAuth) {
+  loading: boolean = false;
+
+  constructor(
+    private fb: FormBuilder, 
+    private afAuth: AngularFireAuth, 
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private firebaseError: FirebaseCodeErrorsService
+  ) {
     this.registerUser = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
@@ -26,26 +37,39 @@ export class RegisterUserComponent implements OnInit {
     const email =this.registerUser.value.email;
     const password =this.registerUser.value.password;
     const confirmPassword =this.registerUser.value.confirmPassword;
+
+    if(password != confirmPassword) {
+      this.openSnackBarFail('As senhas inseridas devem ser idênticas!');
+      return;
+    }
     
-    this.afAuth.createUserWithEmailAndPassword(email, password).then((user) => {
-      console.log(user);
+    this.loading = true;
+    this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
+      this.loading = false;
+      this.openSnackBarSucess();
+      this.router.navigate(['/login']);
     }).catch((error) => {
-      console.log(error);
-      alert(this.firebaseError(error.code));
+      this.loading = false;
+      this.openSnackBarFail(this.firebaseError.firebaseCodeErrors(error.code));
     })
   }
 
-  firebaseError(code: string) {
-    switch(code) {
-      case 'auth/email-already-in-use':
-        return 'O usuário já existe!';
-      case 'auth/weak-password':
-        return 'A senha precisa ter ao menos 6 caracteres!';
-      case 'auth/invalid-email':
-        return 'Insira um e-mail válido!';   
-      default:
-        return 'Erro desconhecido!';
-    }
+  openSnackBarFail(message: string) {
+    this._snackBar.open(message, '', {
+      duration: 5000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['snackBarFail']
+    });
+  }
+
+  openSnackBarSucess() {
+    this._snackBar.open('Usuário cadastrado! Aguarge a liberação do administrador.', '', {
+      duration: 5000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['snackBarSucess']
+    });
   }
 
 }

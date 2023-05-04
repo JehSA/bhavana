@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AlunosService } from 'src/app/services/alunos.service';
 
@@ -12,7 +13,7 @@ export class CreateAlunoComponent implements OnInit {
 
   id: any;
 
-  constructor(private aln: AlunosService, private aRoute: ActivatedRoute) {
+  constructor(private aln: AlunosService, private aRoute: ActivatedRoute, private _snackBar: MatSnackBar) {
     this.id = this.aRoute.snapshot.paramMap.get('id');
   }
 
@@ -27,6 +28,7 @@ export class CreateAlunoComponent implements OnInit {
 
   newAluno(data: any) {
     this.aln.saveAluno(data);
+    this.openSnackBar();
   }
 
   editAluno(id: string, aluno: any) {
@@ -42,7 +44,6 @@ export class CreateAlunoComponent implements OnInit {
     }else{
       this.aln.updateAluno(id, aluno);
     }
-
   }
 
   esEditar() {
@@ -55,6 +56,15 @@ export class CreateAlunoComponent implements OnInit {
         });
       });
     }
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Aluno cadastrado com sucesso!', '', {
+      duration: 5000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['snackBarSucess']
+    });
   }
 
 }

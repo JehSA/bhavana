@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 // Firebase services + environment module
 import { AngularFireModule } from '@angular/fire/compat';
@@ -33,9 +34,6 @@ import { RegisterUserComponent } from './auth/register-user/register-user.compon
 import { MailVerifyComponent } from './auth/mail-verify/mail-verify.component';
 import { RecoverPasswordComponent } from './auth/recover-password/recover-password.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
-
-import { ToastrModule } from 'ngx-toastr';
-
 
 @NgModule({
   declarations: [
@@ -68,7 +66,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatPaginatorModule,
     MatSortModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot()
+    MatSnackBarModule
   ],
   providers: [AngularFireAuth, AngularFirestore],
   bootstrap: [AppComponent]
