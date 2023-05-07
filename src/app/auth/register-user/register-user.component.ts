@@ -58,8 +58,8 @@ export class RegisterUserComponent implements OnInit {
   }
 
   verifyUser() {
-    this.afAuth.currentUser.then(user => user?.sendEmailVerification())
-      .then(() => {
+    this.afAuth.currentUser.then(user => console.log(user?.sendEmailVerification()))    
+      .then(() => {        
         this.loading = false;
         this.openSnackBarInfo();
         this.router.navigate(['/login']);

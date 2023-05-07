@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,9 +9,22 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  dataUser: any;
+
+  constructor(private router: Router, private afAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
+    this.afAuth.currentUser.then(user => {
+      if(user && user.emailVerified) {
+        this.dataUser = user; 
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
+  }
+
+  logout() {
+    this.afAuth.signOut().then(() => this.router.navigate(['/login']));
   }
 
 }
