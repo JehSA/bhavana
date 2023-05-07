@@ -8,6 +8,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterUserComponent } from './auth/register-user/register-user.component';
 import { MailVerifyComponent } from './auth/mail-verify/mail-verify.component';
 import { RecoverPasswordComponent } from './auth/recover-password/recover-password.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,11 +16,11 @@ const routes: Routes = [
   { path: 'register-user', component: RegisterUserComponent },
   { path: 'mail-verify', component: MailVerifyComponent },
   { path: 'recover-password', component: RecoverPasswordComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'alunos', component: AlunosComponent },
-  { path: 'professores', component: ProfessoresComponent },
-  { path: 'create-aluno', component: CreateAlunoComponent },
-  { path: 'edit-aluno/:id', component: CreateAlunoComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'alunos', component: AlunosComponent, canActivate: [AuthGuard] },
+  { path: 'professores', component: ProfessoresComponent, canActivate: [AuthGuard] },
+  { path: 'create-aluno', component: CreateAlunoComponent, canActivate: [AuthGuard] },
+  { path: 'edit-aluno/:id', component: CreateAlunoComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

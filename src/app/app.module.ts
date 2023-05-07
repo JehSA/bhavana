@@ -34,6 +34,7 @@ import { RegisterUserComponent } from './auth/register-user/register-user.compon
 import { MailVerifyComponent } from './auth/mail-verify/mail-verify.component';
 import { RecoverPasswordComponent } from './auth/recover-password/recover-password.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     ReactiveFormsModule,
     MatSnackBarModule
   ],
-  providers: [AngularFireAuth, AngularFirestore],
+  providers: [AngularFireAuth, AngularFirestore, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

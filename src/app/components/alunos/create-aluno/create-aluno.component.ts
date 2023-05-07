@@ -49,7 +49,7 @@ export class CreateAlunoComponent implements OnInit {
   esEditar() {
     if(this.id !== null) {
       this.aln.getAlunoById(this.id).subscribe(data => {
-        console.log(data.payload.data()['email']);
+        //console.log(data.payload.data()['email']);
         this.newPostForm.setValue({
           email: data.payload.data()['email'],
           nome: data.payload.data()['nome']
