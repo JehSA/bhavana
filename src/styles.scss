@@ -9,6 +9,7 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
 
+// Default style of system alert messages 
 .snackBarSucess {
     background-color: rgb(111, 219, 111);
     color: white;
@@ -22,10 +23,10 @@ body {
     color: white;
 }
 
+// Treatment in login fields
 .form-floating {
     text-align: start;
 }
-
 .errorLabel {
     margin-left: 5px;
 }

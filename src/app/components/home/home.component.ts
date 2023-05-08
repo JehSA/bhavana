@@ -14,6 +14,14 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private afAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
+    this.userAutenticated();
+  }
+
+  logout() {
+    this.afAuth.signOut().then(() => this.router.navigate(['/login']));
+  }
+
+  userAutenticated() {
     this.afAuth.currentUser.then(user => {
       if(user && user.emailVerified) {
         this.dataUser = user; 
@@ -21,10 +29,6 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     });
-  }
-
-  logout() {
-    this.afAuth.signOut().then(() => this.router.navigate(['/login']));
   }
 
 }

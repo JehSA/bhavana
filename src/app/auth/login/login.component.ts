@@ -60,11 +60,11 @@ export class LoginComponent implements OnInit {
   }
 
   openSnackBarSucess() {
-    this._snackBar.open('Usuário logado!', '', {
+    this._snackBar.open('Seja bem-vindo ' + this.userLogin.value.email, '', {
       duration: 5000,
       horizontalPosition: 'right',
       verticalPosition: 'top',
-      panelClass: ['snackBarSucess']
+      panelClass: ['snackBarInfo']
     });
   }
 

@@ -47,9 +47,6 @@ export class RegisterUserComponent implements OnInit {
     
     this.loading = true;
     this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
-      /*this.loading = false;
-      this.openSnackBarSucess();
-      this.router.navigate(['/login']);*/
       this.verifyUser();
     }).catch((error) => {
       this.loading = false;
@@ -58,7 +55,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   verifyUser() {
-    this.afAuth.currentUser.then(user => console.log(user?.sendEmailVerification()))    
+    this.afAuth.currentUser.then(user => user?.sendEmailVerification())    
       .then(() => {        
         this.loading = false;
         this.openSnackBarInfo();

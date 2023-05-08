@@ -18,8 +18,24 @@ export class CreateAlunoComponent implements OnInit {
   }
 
   public newPostForm = new FormGroup({
+    unidade: new FormControl('', Validators.required),
+    status: new FormControl(''),
+    plano: new FormControl(''),    
+    dtMatricula: new FormControl(''),
+    nome: new FormControl('', Validators.required),    
+    dtNascimento: new FormControl(''),    
+    sexo: new FormControl(''),   
+    rg: new FormControl(''),   
+    cpf: new FormControl(''),  
+    endereco: new FormControl(''),
+    cep: new FormControl(''), 
+    bairro: new FormControl(''),
+    cidade: new FormControl(''),
+    uf: new FormControl(''),   
     email: new FormControl('', Validators.required),
-    nome: new FormControl('', Validators.required)
+    celular: new FormControl(''),
+    telefone: new FormControl(''),
+    obs: new FormControl('')  
   });
 
   ngOnInit(): void {
@@ -28,11 +44,13 @@ export class CreateAlunoComponent implements OnInit {
 
   newAluno(data: any) {
     this.aln.saveAluno(data);
-    this.openSnackBar();
+    this.newPostForm.reset();
+    this.openSnackBar('Aluno cadastrado com sucesso!');
   }
 
   editAluno(id: string, aluno: any) {
     this.aln.updateAluno(id, aluno);
+    this.openSnackBar('Dados do aluno com sucesso!');
   }
 
   newEditAluno(aluno: any, id: any) {
@@ -49,17 +67,32 @@ export class CreateAlunoComponent implements OnInit {
   esEditar() {
     if(this.id !== null) {
       this.aln.getAlunoById(this.id).subscribe(data => {
-        //console.log(data.payload.data()['email']);
         this.newPostForm.setValue({
+          unidade: data.payload.data()['unidade'],
+          status: data.payload.data()['status'],          
+          plano: data.payload.data()['plano'],
+          dtMatricula: data.payload.data()['dtMatricula'],
+          nome: data.payload.data()['nome'],
+          dtNascimento: data.payload.data()['dtNascimento'],          
+          sexo: data.payload.data()['sexo'],
+          rg: data.payload.data()['rg'],
+          cpf: data.payload.data()['cpf'],
+          endereco: data.payload.data()['endereco'],
+          cep: data.payload.data()['cep'],
+          bairro: data.payload.data()['bairro'],
+          cidade: data.payload.data()['cidade'],
+          uf: data.payload.data()['uf'],
           email: data.payload.data()['email'],
-          nome: data.payload.data()['nome']
+          celular: data.payload.data()['celular'],
+          telefone: data.payload.data()['telefone'],
+          obs: data.payload.data()['obs']          
         });
       });
     }
   }
 
-  openSnackBar() {
-    this._snackBar.open('Aluno cadastrado com sucesso!', '', {
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '', {
       duration: 5000,
       horizontalPosition: 'right',
       verticalPosition: 'top',

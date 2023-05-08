@@ -10,6 +10,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSelectModule} from '@angular/material/select';
 
 // Firebase services + environment module
 import { AngularFireModule } from '@angular/fire/compat';
@@ -67,7 +69,9 @@ import { AuthGuard } from './guards/auth.guard';
     MatPaginatorModule,
     MatSortModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule,
+    MatSelectModule
   ],
   providers: [AngularFireAuth, AngularFirestore, AuthGuard],
   bootstrap: [AppComponent]

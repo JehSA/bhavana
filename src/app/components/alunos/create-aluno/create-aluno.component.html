@@ -1,19 +1,115 @@
-<div class="new-post-container">
-    <form [formGroup]="newPostForm">
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email">
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <mat-label>Nome</mat-label>
-        <input matInput formControlName="nome">
-      </mat-form-field>
-      <div class="container-button" *ngIf="!id">
-        <input type="submit" class="mat-flat-button" value="Save"  (click)="newAluno(newPostForm.value)">
-      </div>
-      <div class="container-button" *ngIf="id">
-        <input type="submit" class="mat-flat-button" value="Edit"  (click)="editAluno(id, newPostForm.value)">
-      </div>
-    </form>
+<div class="new-post-container container">
+  <h1><strong>Cadastro de Aluno</strong></h1>
+  <div class="body">    
+    <mat-tab-group animationDuration="2000ms">
+      <mat-tab label="Informações pessoais">
+        <form [formGroup]="newPostForm" class="form">
+          <mat-form-field class="lineOneForm">
+            <mat-label>Unidade</mat-label>
+            <select matNativeControl required formControlName="unidade">
+              <option label=""></option>
+              <option value="São Miguel">São Miguel</option>
+              <option value="Tatuapé">Tatuapé</option>
+            </select>
+          </mat-form-field>
+          <mat-form-field class="lineOneForm">
+            <mat-label>Status</mat-label>
+            <select matNativeControl formControlName="status">
+              <option label=""></option>
+              <option value="ativo">Ativo</option>
+              <option value="inativo">Inativo</option>
+            </select>
+          </mat-form-field>
+          <mat-form-field class="lineOneForm">
+            <mat-label >Plano</mat-label>
+            <select matNativeControl formControlName="plano">
+              <option label=""></option>
+              <option value="bolsista">Bolsista</option>
+              <option value="teste 2">Teste 2</option>
+            </select>
+          </mat-form-field>
+          <mat-form-field class="lineOneForm">
+            <mat-label>Data de matrícula</mat-label>
+            <input matInput formControlName="dtMatricula">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Data de nascimento</mat-label>
+            <input matInput formControlName="dtNascimento">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label >Sexo</mat-label>
+            <select matNativeControl formControlName="sexo">
+              <option label=""></option>
+              <option value="feminino">Feminino</option>
+              <option value="masculino">Masculino</option>
+              <option value="outro">Outro</option>
+            </select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>RG</mat-label>
+            <input matInput formControlName="rg">
+          </mat-form-field> 
+          <mat-form-field>
+            <mat-label>CPF</mat-label>
+            <input matInput formControlName="cpf">
+          </mat-form-field> 
+          <mat-form-field class="endereco">
+            <mat-label>Endereço</mat-label>
+            <input matInput formControlName="endereco">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>CEP</mat-label>
+            <input matInput formControlName="cep">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Bairro</mat-label>
+            <input matInput formControlName="bairro">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Cidade</mat-label>
+            <input matInput formControlName="cidade">
+          </mat-form-field>    
+          <mat-form-field>
+            <mat-label>UF</mat-label>
+            <input matInput formControlName="uf">
+          </mat-form-field> 
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+          </mat-form-field> 
+          <mat-form-field>
+            <mat-label>Celular</mat-label>
+            <input matInput formControlName="celular">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone">
+          </mat-form-field>
+          <mat-form-field class="obs">
+            <mat-label>Observações</mat-label>
+            <input matInput formControlName="obs">
+          </mat-form-field>                      
+        </form>
+      </mat-tab>
+
+      <mat-tab label="Saúde do aluno">      
+        Content 2
+      </mat-tab>
+
+      <mat-tab label="Pesquisa Bhavana">
+        Content 3
+      </mat-tab>
+
+    </mat-tab-group>
+    <div class="container-button" *ngIf="!id">
+      <input type="submit" class="mat-flat-button" value="Save" (click)="newAluno(newPostForm.value)">
+    </div>
+    <div class="container-button" *ngIf="id">
+      <input type="submit" class="mat-flat-button" value="Edit" (click)="editAluno(id, newPostForm.value)">
+    </div>    
+  </div>
 </div>

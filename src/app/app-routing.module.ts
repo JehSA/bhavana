@@ -17,10 +17,10 @@ const routes: Routes = [
   { path: 'mail-verify', component: MailVerifyComponent },
   { path: 'recover-password', component: RecoverPasswordComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'alunos', component: AlunosComponent, canActivate: [AuthGuard] },
-  { path: 'professores', component: ProfessoresComponent, canActivate: [AuthGuard] },
-  { path: 'create-aluno', component: CreateAlunoComponent, canActivate: [AuthGuard] },
+  { path: 'alunos', component: AlunosComponent, canActivate: [AuthGuard] },  
+  { path: 'create-aluno', component: CreateAlunoComponent },
   { path: 'edit-aluno/:id', component: CreateAlunoComponent, canActivate: [AuthGuard] },
+  { path: 'professores', component: ProfessoresComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

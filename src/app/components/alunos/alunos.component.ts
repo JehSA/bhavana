@@ -5,6 +5,7 @@ import { AlunoInterface } from 'src/app/models/alunos';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-alunos',
@@ -15,6 +16,9 @@ export class AlunosComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nome', 'email', 'actions'];
   dataSource!: MatTableDataSource<AlunoInterface>;
+
+  title = 'angular-app';
+  fileName= 'ExcelSheet.xlsx';
 
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
@@ -55,6 +59,22 @@ export class AlunosComponent implements OnInit {
   deleteAluno(id: string) {
     this.alunoService.deleteAluno(id).then(() => {
     });
+  }
+
+  exportexcel(): void {
+    /* pass here the table id */
+    //let element = document.getElementById('excel-table');
+    //const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(this.dataSource);
+
+    let ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.alunos, <XLSX.Table2SheetOpts>{ sheet: 'Sheet 1' });
+    let wb: XLSX.WorkBook = XLSX.utils.book_new();
+ 
+    /* generate workbook and add the worksheet */
+    //const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+ 
+    /* save to file */  
+    XLSX.writeFile(wb, this.fileName); 
   }
 
 }
