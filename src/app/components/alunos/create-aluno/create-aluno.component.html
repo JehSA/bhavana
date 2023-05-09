@@ -22,10 +22,9 @@
           </mat-form-field>
           <mat-form-field class="lineOneForm">
             <mat-label >Plano</mat-label>
-            <select matNativeControl formControlName="plano">
+            <select matNativeControl formControlName="plano" [(ngModel)]="selectUnidade">
               <option label=""></option>
-              <option value="bolsista">Bolsista</option>
-              <option value="teste 2">Teste 2</option>
+              <option label="Teste"></option>
             </select>
           </mat-form-field>
           <mat-form-field class="lineOneForm">
@@ -92,7 +91,8 @@
           <mat-form-field class="obs">
             <mat-label>Observações</mat-label>
             <input matInput formControlName="obs">
-          </mat-form-field>                      
+          </mat-form-field>
+          {{selectUnidade.unidade}}                      
         </form>
       </mat-tab>
 
@@ -103,7 +103,6 @@
       <mat-tab label="Pesquisa Bhavana">
         Content 3
       </mat-tab>
-
     </mat-tab-group>
     <div class="container-button" *ngIf="!id">
       <input type="submit" class="mat-flat-button" value="Save" (click)="newAluno(newPostForm.value)">

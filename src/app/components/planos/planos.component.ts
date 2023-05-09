@@ -1,20 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlunosService } from 'src/app/services/alunos.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { AlunoInterface } from 'src/app/models/alunos';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { MatTableDataSource } from '@angular/material/table';
+import { AlunoInterface } from 'src/app/models/alunos';
+import { PlanoInterface } from 'src/app/models/planos';
+import { PlanosService } from 'src/app/services/planos.service';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-alunos',
-  templateUrl: './alunos.component.html',
-  styleUrls: ['./alunos.component.scss']
+  selector: 'app-planos',
+  templateUrl: './planos.component.html',
+  styleUrls: ['./planos.component.scss']
 })
-export class AlunosComponent implements OnInit {
+export class PlanosComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'email', 'actions'];
+  displayedColumns: string[] = ['id', 'unidade', 'desdricao', 'valor', 'actions'];
   dataSource!: MatTableDataSource<AlunoInterface>;
 
   title = 'angular-app';
@@ -23,28 +24,33 @@ export class AlunosComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
 
-  constructor(private alunoService: AlunosService, private afs: AngularFirestore) { }
-
   length!: number;
   pageSize = 10;
   pageIndex: any;
   pageSizeOptions = [10, 20, 30];
   showFirstLastButtons = true;  
 
-  public alunos: any = [];
-  public aluno = ''; 
+  public planos: any = [];
+  public plano = ''; 
+
+  constructor(private planoService: PlanosService, private afs: AngularFirestore) { }
 
   ngOnInit(): void {
-    this.getAllAlunos();
+    this.getAllPlanos();
   }
 
-  getAllAlunos() {
-    this.alunoService.getAllAlunos()
-    .subscribe(alunos => {        
-      this.alunos = alunos;
-      this.dataSource = new MatTableDataSource<AlunoInterface>(this.alunos);
+  getAllPlanos() {
+    this.planoService.getAllPlanos()
+    .subscribe(planos => {        
+      this.planos = planos;
+      this.dataSource = new MatTableDataSource<PlanoInterface>(this.planos);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;      
+    });
+  }
+
+  deletePlano(id: string) {
+    this.planoService.deletePlano(id).then(() => {
     });
   }
 
@@ -56,14 +62,9 @@ export class AlunosComponent implements OnInit {
     }
   }
 
-  deleteAluno(id: string) {
-    this.alunoService.deleteAluno(id).then(() => {
-    });
-  }
-
   exportToExcel(): void {
     /* pass here the dataSource */
-    let ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.alunos, <XLSX.Table2SheetOpts>{ sheet: 'Sheet 1' });
+    let ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.planos, <XLSX.Table2SheetOpts>{ sheet: 'Sheet 1' });
      
     /* generate workbook and add the worksheet */
     let wb: XLSX.WorkBook = XLSX.utils.book_new();

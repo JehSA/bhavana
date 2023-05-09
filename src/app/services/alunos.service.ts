@@ -21,7 +21,7 @@ export class AlunosService  {
   getAllAlunos() {
     return this.alunos = this.alunosCollection.snapshotChanges()
     .pipe(map(changes => {      
-      return changes.map( action => {        
+      return changes.map(action => {        
         const data = action.payload.doc.data() as AlunoInterface;
         data.id = action.payload.doc.id;
         return data;

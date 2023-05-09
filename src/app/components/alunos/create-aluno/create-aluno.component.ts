@@ -1,8 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { PlanoInterface } from 'src/app/models/planos';
 import { AlunosService } from 'src/app/services/alunos.service';
+import { PlanosService } from 'src/app/services/planos.service';
+
+interface category {
+  id: number,
+  descricao: any,
+  valor: string
+}
 
 @Component({
   selector: 'app-create-aluno',
@@ -13,7 +22,11 @@ export class CreateAlunoComponent implements OnInit {
 
   id: any;
 
-  constructor(private aln: AlunosService, private aRoute: ActivatedRoute, private _snackBar: MatSnackBar) {
+  selectUnidade: any;
+
+  dataSource!: MatTableDataSource<PlanoInterface>;
+
+  constructor(private aln: AlunosService, private aRoute: ActivatedRoute, private _snackBar: MatSnackBar, private planoServ: PlanosService) {
     this.id = this.aRoute.snapshot.paramMap.get('id');
   }
 
@@ -38,8 +51,14 @@ export class CreateAlunoComponent implements OnInit {
     obs: new FormControl('')  
   });
 
+  selectedObject!: category;
+  categories = [
+    //{id: 1, descricao: this.dataSource.filteredData.values.valor}
+  ]
+
   ngOnInit(): void {
     this.esEditar();
+    this.getPlanoForSelect()
   }
 
   newAluno(data: any) {
@@ -50,7 +69,7 @@ export class CreateAlunoComponent implements OnInit {
 
   editAluno(id: string, aluno: any) {
     this.aln.updateAluno(id, aluno);
-    this.openSnackBar('Dados do aluno com sucesso!');
+    this.openSnackBar('Os dados do aluno foram alterados com sucesso!');
   }
 
   newEditAluno(aluno: any, id: any) {
@@ -89,6 +108,16 @@ export class CreateAlunoComponent implements OnInit {
         });
       });
     }
+  }
+
+  getPlanoForSelect() {
+    this.selectUnidade = this.planoServ.getAllPlanos()
+    .subscribe(planos => {
+      this.dataSource = new MatTableDataSource<PlanoInterface>(planos);
+      this.selectUnidade = this.dataSource.filteredData;
+      console.log(this.dataSource.filteredData)
+      console.log(this.selectUnidade)
+    });    
   }
 
   openSnackBar(message: string) {

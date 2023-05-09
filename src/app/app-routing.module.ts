@@ -9,6 +9,8 @@ import { RegisterUserComponent } from './auth/register-user/register-user.compon
 import { MailVerifyComponent } from './auth/mail-verify/mail-verify.component';
 import { RecoverPasswordComponent } from './auth/recover-password/recover-password.component';
 import { AuthGuard } from './guards/auth.guard';
+import { PlanosComponent } from './components/planos/planos.component';
+import { CreatePlanoComponent } from './components/planos/create-plano/create-plano.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -20,6 +22,9 @@ const routes: Routes = [
   { path: 'alunos', component: AlunosComponent, canActivate: [AuthGuard] },  
   { path: 'create-aluno', component: CreateAlunoComponent },
   { path: 'edit-aluno/:id', component: CreateAlunoComponent, canActivate: [AuthGuard] },
+  { path: 'planos', component: PlanosComponent },
+  { path: 'create-plano', component: CreatePlanoComponent },
+  { path: 'edit-plano/:id', component: CreatePlanoComponent },
   { path: 'professores', component: ProfessoresComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

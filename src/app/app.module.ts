@@ -9,9 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 
 // Firebase services + environment module
 import { AngularFireModule } from '@angular/fire/compat';
@@ -37,6 +37,8 @@ import { MailVerifyComponent } from './auth/mail-verify/mail-verify.component';
 import { RecoverPasswordComponent } from './auth/recover-password/recover-password.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { AuthGuard } from './guards/auth.guard';
+import { PlanosComponent } from './components/planos/planos.component';
+import { CreatePlanoComponent } from './components/planos/create-plano/create-plano.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { AuthGuard } from './guards/auth.guard';
     RegisterUserComponent,
     MailVerifyComponent,
     RecoverPasswordComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PlanosComponent,
+    CreatePlanoComponent
   ],
   imports: [
     BrowserModule,
