@@ -12,6 +12,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
+import { TextMaskModule } from 'angular2-text-mask';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 // Firebase services + environment module
 import { AngularFireModule } from '@angular/fire/compat';
@@ -40,6 +43,9 @@ import { AuthGuard } from './guards/auth.guard';
 import { PlanosComponent } from './components/planos/planos.component';
 import { CreatePlanoComponent } from './components/planos/create-plano/create-plano.component';
 
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +60,7 @@ import { CreatePlanoComponent } from './components/planos/create-plano/create-pl
     RecoverPasswordComponent,
     SpinnerComponent,
     PlanosComponent,
-    CreatePlanoComponent
+    CreatePlanoComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +73,7 @@ import { CreatePlanoComponent } from './components/planos/create-plano/create-pl
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    TextMaskModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     MatTableModule,
@@ -75,9 +82,13 @@ import { CreatePlanoComponent } from './components/planos/create-plano/create-pl
     ReactiveFormsModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    NgxMaskModule.forRoot()
   ],
-  providers: [AngularFireAuth, AngularFirestore, AuthGuard],
+  providers: [AngularFireAuth, AngularFirestore, AuthGuard, MatDatepickerModule],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

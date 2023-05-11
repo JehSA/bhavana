@@ -22,14 +22,16 @@
           </mat-form-field>
           <mat-form-field class="lineOneForm">
             <mat-label >Plano</mat-label>
-            <select matNativeControl formControlName="plano" [(ngModel)]="selectUnidade">
+            <select matNativeControl formControlName="plano">
               <option label=""></option>
-              <option label="Teste"></option>
+              <option *ngFor="let plano of selectUnidade">
+                {{ plano.descricao }} - {{plano.valor}}
+              </option>
             </select>
           </mat-form-field>
           <mat-form-field class="lineOneForm">
             <mat-label>Data de matrícula</mat-label>
-            <input matInput formControlName="dtMatricula">
+            <input matInput formControlName="dtMatricula" [mask]="'00/00/0000'">
           </mat-form-field>
           <mat-form-field>
             <mat-label>Nome</mat-label>
@@ -37,7 +39,7 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Data de nascimento</mat-label>
-            <input matInput formControlName="dtNascimento">
+            <input matInput formControlName="dtNascimento" [mask]="'00/00/0000'">
           </mat-form-field>
           <mat-form-field>
             <mat-label >Sexo</mat-label>
@@ -54,7 +56,7 @@
           </mat-form-field> 
           <mat-form-field>
             <mat-label>CPF</mat-label>
-            <input matInput formControlName="cpf">
+            <input matInput formControlName="cpf" [mask]="'000.000.000-00'">
           </mat-form-field> 
           <mat-form-field class="endereco">
             <mat-label>Endereço</mat-label>
@@ -62,7 +64,7 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>CEP</mat-label>
-            <input matInput formControlName="cep">
+            <input matInput formControlName="cep" [mask]="'00000-000'">
           </mat-form-field>
           <mat-form-field>
             <mat-label>Bairro</mat-label>
@@ -71,28 +73,56 @@
           <mat-form-field>
             <mat-label>Cidade</mat-label>
             <input matInput formControlName="cidade">
-          </mat-form-field>    
+          </mat-form-field>
           <mat-form-field>
             <mat-label>UF</mat-label>
-            <input matInput formControlName="uf">
-          </mat-form-field> 
+            <select matNativeControl formControlName="uf"> 
+              <option label=""></option>
+              <option value="AC">AC</option>
+              <option value="AL">AL</option>
+              <option value="AP">AP</option>
+              <option value="AM">AM</option>
+              <option value="BA">BA</option>
+              <option value="CE">CE</option>
+              <option value="DF">DF</option>
+              <option value="ES">ES</option>
+              <option value="GO">GO</option>
+              <option value="MA">MA</option>
+              <option value="MT">MT</option>
+              <option value="MS">MS</option>
+              <option value="MG">MG</option>
+              <option value="PA">PA</option>
+              <option value="PB">PB</option>
+              <option value="PR">PR</option>
+              <option value="PE">PE</option>
+              <option value="PI">PI</option>
+              <option value="RJ">RJ</option>
+              <option value="RN">RN</option>
+              <option value="RS">RS</option>
+              <option value="RO">RO</option>
+              <option value="RR">RR</option>
+              <option value="SC">SC</option>
+              <option value="SP">SP</option>
+              <option value="SE">SE</option>
+              <option value="TO">TO</option>
+            </select>
+          </mat-form-field>
           <mat-form-field>
             <mat-label>Email</mat-label>
-            <input matInput formControlName="email">
+            <input type="email" matInput formControlName="email">
           </mat-form-field> 
           <mat-form-field>
             <mat-label>Celular</mat-label>
-            <input matInput formControlName="celular">
+            <input matInput formControlName="celular" [mask]="'(00) 0 0000-0000'">
           </mat-form-field>
           <mat-form-field>
             <mat-label>Telefone</mat-label>
-            <input matInput formControlName="telefone">
+            <input matInput formControlName="telefone" [mask]="'(00) 0000-0000'">
           </mat-form-field>
           <mat-form-field class="obs">
             <mat-label>Observações</mat-label>
             <input matInput formControlName="obs">
-          </mat-form-field>
-          {{selectUnidade.unidade}}                      
+          </mat-form-field>                 
         </form>
       </mat-tab>
 

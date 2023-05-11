@@ -7,12 +7,6 @@ import { PlanoInterface } from 'src/app/models/planos';
 import { AlunosService } from 'src/app/services/alunos.service';
 import { PlanosService } from 'src/app/services/planos.service';
 
-interface category {
-  id: number,
-  descricao: any,
-  valor: string
-}
-
 @Component({
   selector: 'app-create-aluno',
   templateUrl: './create-aluno.component.html',
@@ -26,8 +20,17 @@ export class CreateAlunoComponent implements OnInit {
 
   dataSource!: MatTableDataSource<PlanoInterface>;
 
-  constructor(private aln: AlunosService, private aRoute: ActivatedRoute, private _snackBar: MatSnackBar, private planoServ: PlanosService) {
-    this.id = this.aRoute.snapshot.paramMap.get('id');
+  ufSelect!: any[];
+  selectedValue: any;
+  masks: any;
+
+  constructor(
+    private aln: AlunosService, 
+    private aRoute: ActivatedRoute, 
+    private _snackBar: MatSnackBar, 
+    private planoServ: PlanosService
+  ) {
+    this.id = this.aRoute.snapshot.paramMap.get('id');   
   }
 
   public newPostForm = new FormGroup({
@@ -35,7 +38,7 @@ export class CreateAlunoComponent implements OnInit {
     status: new FormControl(''),
     plano: new FormControl(''),    
     dtMatricula: new FormControl(''),
-    nome: new FormControl('', Validators.required),    
+    nome: new FormControl('', [Validators.required]),    
     dtNascimento: new FormControl(''),    
     sexo: new FormControl(''),   
     rg: new FormControl(''),   
@@ -45,20 +48,15 @@ export class CreateAlunoComponent implements OnInit {
     bairro: new FormControl(''),
     cidade: new FormControl(''),
     uf: new FormControl(''),   
-    email: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
     celular: new FormControl(''),
     telefone: new FormControl(''),
     obs: new FormControl('')  
   });
 
-  selectedObject!: category;
-  categories = [
-    //{id: 1, descricao: this.dataSource.filteredData.values.valor}
-  ]
-
   ngOnInit(): void {
-    this.esEditar();
-    this.getPlanoForSelect()
+    this.getPlanoForSelect();
+    this.esEditar();    
   }
 
   newAluno(data: any) {
@@ -109,14 +107,12 @@ export class CreateAlunoComponent implements OnInit {
       });
     }
   }
-
+ 
   getPlanoForSelect() {
     this.selectUnidade = this.planoServ.getAllPlanos()
     .subscribe(planos => {
       this.dataSource = new MatTableDataSource<PlanoInterface>(planos);
       this.selectUnidade = this.dataSource.filteredData;
-      console.log(this.dataSource.filteredData)
-      console.log(this.selectUnidade)
     });    
   }
 
