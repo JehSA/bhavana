@@ -22,7 +22,17 @@ export class CreateAlunoComponent implements OnInit {
 
   ufSelect!: any[];
   selectedValue: any;
+  
   masks: any;
+
+  diagnosticos = [
+    {id: 1, select: false, name: 'Depressão'},
+    {id: 2, select: false, name: 'Diabetes'},
+    {id: 3, select: false, name: 'Enxaqueca'},
+    {id: 4, select: false, name: 'Hipertensão'},
+    {id: 5, select: false, name: 'Insônia'},
+    {id: 6, select: false, name: 'Labirintite'}
+  ]
 
   constructor(
     private aln: AlunosService, 
@@ -51,7 +61,17 @@ export class CreateAlunoComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     celular: new FormControl(''),
     telefone: new FormControl(''),
-    obs: new FormControl('')  
+    obs: new FormControl(''),
+    cirurgia: new FormControl(''),
+    cirurgiaDetail: new FormControl(''),
+    ortopedico: new FormControl(''),
+    ortopedicoDetail: new FormControl(''),
+    diagnosticos: new FormControl(''),
+    outrasObsSaude: new FormControl(''),
+    outrosHorarios: new FormControl(''),
+    outrasAtividades: new FormControl(''),
+    razaoEspaco: new FormControl(''),
+    comoConheceu: new FormControl('')    
   });
 
   ngOnInit(): void {
@@ -102,7 +122,17 @@ export class CreateAlunoComponent implements OnInit {
           email: data.payload.data()['email'],
           celular: data.payload.data()['celular'],
           telefone: data.payload.data()['telefone'],
-          obs: data.payload.data()['obs']          
+          obs: data.payload.data()['obs'],
+          cirurgia: data.payload.data()['cirurgia'],
+          cirurgiaDetail: data.payload.data()['cirurgiaDetail'],
+          ortopedico: data.payload.data()['ortopedico'],
+          ortopedicoDetail: data.payload.data()['ortopedicoDetail'],
+          diagnosticos: data.payload.data()['diagnosticos'],
+          outrasObsSaude: data.payload.data()['outrasObsSaude'],
+          outrosHorarios: data.payload.data()['outrosHorarios'],
+          outrasAtividades: data.payload.data()['outrasAtividades'],        
+          razaoEspaco: data.payload.data()['razaoEspaco'],
+          comoConheceu: data.payload.data()['comoConheceu']     
         });
       });
     }

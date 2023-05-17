@@ -17,5 +17,15 @@ export interface AlunoInterface {
     uf?: string,
     email?: string,
     celular?: string,
-    telefone?: string 
+    telefone?: string,
+    cirurgia?: string,
+    cirurgiaDetail: string,
+    ortopedico?: string,
+    ortopedicoDetail?: string,
+    diagnosticos?: any,
+    outrasObsSaude?: string,
+    outrosHorarios?: string,
+    outrasAtividades?: string,
+    razaoEspaco?: string,
+    comoConheceu?: string 
 }

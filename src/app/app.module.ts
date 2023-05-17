@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatRadioModule} from '@angular/material/radio';
 
 // Firebase services + environment module
 import { AngularFireModule } from '@angular/fire/compat';
@@ -85,7 +86,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     MatSelectModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    MatRadioModule
   ],
   providers: [AngularFireAuth, AngularFirestore, AuthGuard, MatDatepickerModule],
   bootstrap: [AppComponent]

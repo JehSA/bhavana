@@ -2,6 +2,7 @@
   <h1><strong>Cadastro de Aluno</strong></h1>
   <div class="body">    
     <mat-tab-group animationDuration="2000ms">
+      
       <mat-tab label="Informações pessoais">
         <form [formGroup]="newPostForm" class="form">
           <mat-form-field class="lineOneForm">
@@ -127,13 +128,68 @@
       </mat-tab>
 
       <mat-tab label="Saúde do aluno">      
-        Content 2
+        <form [formGroup]="newPostForm" class="form form2">
+          <div class="radioButton">
+            <p><strong>Fez alguma cirurgia nos últimos 12 meses?</strong></p>
+            <mat-radio-group formControlName="cirurgia">
+              <mat-radio-button class="radio1" value="sim">Sim</mat-radio-button>
+              <mat-radio-button value="não">Não</mat-radio-button>
+            </mat-radio-group>
+          </div>          
+          <mat-form-field class="obs">
+            <mat-label>Detalhes</mat-label>
+            <input matInput formControlName="cirurgiaDetail">
+          </mat-form-field>
+          <div class="radioButton mt-4">
+            <p><strong>Possui aulgum problema ortopédico?</strong></p>
+            <mat-radio-group formControlName="ortopedico">
+              <mat-radio-button class="radio1" value="sim">Sim</mat-radio-button>
+              <mat-radio-button value="não">Não</mat-radio-button>
+            </mat-radio-group>
+          </div>          
+          <mat-form-field class="obs">
+            <mat-label>Detalhes</mat-label>
+            <input matInput formControlName="ortopedicoDetail">
+          </mat-form-field>
+          <p class="pdiag mt-4"><strong>Possui aulgum dos diagnósticos abaixo?</strong></p>
+          <div class="mt-4 diagnosticos">            
+            <section class="example-section" *ngFor="let n of diagnosticos">
+              <input type="checkbox" [checked]="n.select" formControlName="diagnosticos" [value]="n.select"><p>{{n.name}}</p>
+            </section>            
+          </div>
+          <mat-form-field class="obs">
+            <mat-label>Detalhes</mat-label>
+            <input matInput formControlName="ortopedicoDetail">
+          </mat-form-field>
+          <mat-form-field class="obs mt-4">
+            <mat-label>Outras observações de saúde...</mat-label>
+            <input matInput formControlName="outrasObsSaude">
+          </mat-form-field>               
+        </form>
       </mat-tab>
 
       <mat-tab label="Pesquisa Bhavana">
-        Content 3
+        <form [formGroup]="newPostForm" class="form form2">
+          <mat-form-field class="obs mt-4">
+            <mat-label>O aluno tem interesse em outros horários?</mat-label>
+            <input matInput formControlName="outrosHorarios">
+          </mat-form-field>
+          <mat-form-field class="obs mt-4">
+            <mat-label>O aluno busca por outras atividades?</mat-label>
+            <input matInput formControlName="outrasAtividades">
+          </mat-form-field>
+          <mat-form-field class="obs mt-4">
+            <mat-label>Razaão pela qual procurou o espaço?</mat-label>
+            <input matInput formControlName="razaoEspaco">
+          </mat-form-field>
+          <mat-form-field class="obs mt-4">
+            <mat-label>Como conheceu o espaço?</mat-label>
+            <input matInput formControlName="comoConheceu">
+          </mat-form-field>      
+        </form>
       </mat-tab>
     </mat-tab-group>
+
     <div class="container-button" *ngIf="!id">
       <input type="submit" class="mat-flat-button" value="Save" (click)="newAluno(newPostForm.value)">
     </div>

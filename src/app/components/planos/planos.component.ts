@@ -16,7 +16,7 @@ import * as XLSX from 'xlsx';
 export class PlanosComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'unidade', 'desdricao', 'valor', 'actions'];
-  dataSource!: MatTableDataSource<AlunoInterface>;
+  dataSource!: MatTableDataSource<PlanoInterface>;
 
   title = 'angular-app';
   fileName= 'ExcelSheet.xlsx';
