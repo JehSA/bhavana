@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
@@ -25,7 +25,7 @@ export class CreateAlunoComponent implements OnInit {
   
   masks: any;
 
-  diagnosticos = [
+  diagnosticos: Array<any> = [
     {id: 1, select: false, name: 'Depressão'},
     {id: 2, select: false, name: 'Diabetes'},
     {id: 3, select: false, name: 'Enxaqueca'},
@@ -34,17 +34,27 @@ export class CreateAlunoComponent implements OnInit {
     {id: 6, select: false, name: 'Labirintite'}
   ]
 
+  dia = [
+    'Depressão',
+    'Diabetes',
+    'Enxaqueca',
+    'Hipertensão',
+    'Insônia',
+    'Labirintite'
+  ];
+
   constructor(
     private aln: AlunosService, 
     private aRoute: ActivatedRoute, 
     private _snackBar: MatSnackBar, 
-    private planoServ: PlanosService
+    private planoServ: PlanosService,
+    private formBuilder: FormBuilder
   ) {
     this.id = this.aRoute.snapshot.paramMap.get('id');   
   }
 
   public newPostForm = new FormGroup({
-    unidade: new FormControl('', Validators.required),
+    unidade: new FormControl(''),
     status: new FormControl(''),
     plano: new FormControl(''),    
     dtMatricula: new FormControl(''),
@@ -66,17 +76,27 @@ export class CreateAlunoComponent implements OnInit {
     cirurgiaDetail: new FormControl(''),
     ortopedico: new FormControl(''),
     ortopedicoDetail: new FormControl(''),
+    //diagnosticos: new FormArray([]),
     diagnosticos: new FormControl(''),
+    //diagnosticos: this.formBuilder.array(this.buildDiagnosticos()),
     outrasObsSaude: new FormControl(''),
     outrosHorarios: new FormControl(''),
     outrasAtividades: new FormControl(''),
     razaoEspaco: new FormControl(''),
-    comoConheceu: new FormControl('')    
+    comoConheceu: new FormControl('')        
+  });
+  public diagnostics = new FormGroup({
+    enxaqueca: new FormControl(''),
   });
 
   ngOnInit(): void {
     this.getPlanoForSelect();
     this.esEditar();    
+  }
+  
+  buildDiagnosticos() {
+    const values = this.dia.map(v => new FormControl(false));
+    return values;    
   }
 
   newAluno(data: any) {

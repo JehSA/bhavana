@@ -7,7 +7,7 @@
         <form [formGroup]="newPostForm" class="form">
           <mat-form-field class="lineOneForm">
             <mat-label>Unidade</mat-label>
-            <select matNativeControl required formControlName="unidade">
+            <select matNativeControl formControlName="unidade">
               <option label=""></option>
               <option value="São Miguel">São Miguel</option>
               <option value="Tatuapé">Tatuapé</option>
@@ -154,15 +154,16 @@
           <p class="pdiag mt-4"><strong>Possui aulgum dos diagnósticos abaixo?</strong></p>
           <div class="mt-4 diagnosticos">            
             <section class="example-section" *ngFor="let n of diagnosticos">
-              <input type="checkbox" [checked]="n.select" formControlName="diagnosticos" [value]="n.select"><p>{{n.name}}</p>
+              <input type="checkbox" [checked]="n.select" formControlName="diagnosticos" [value]="n.name"><p>{{n.name}}</p>
             </section>            
           </div>
           <mat-form-field class="obs">
             <mat-label>Detalhes</mat-label>
             <input matInput formControlName="ortopedicoDetail">
           </mat-form-field>
-          <mat-form-field class="obs mt-4">
-            <mat-label>Outras observações de saúde...</mat-label>
+          <p class="pdiag mt-4"><strong>Outras observações de saúde...</strong></p>
+          <mat-form-field class="obs">            
+            <mat-label>Detalhes</mat-label>
             <input matInput formControlName="outrasObsSaude">
           </mat-form-field>               
         </form>
@@ -179,7 +180,7 @@
             <input matInput formControlName="outrasAtividades">
           </mat-form-field>
           <mat-form-field class="obs mt-4">
-            <mat-label>Razaão pela qual procurou o espaço?</mat-label>
+            <mat-label>Razão pela qual procurou o espaço?</mat-label>
             <input matInput formControlName="razaoEspaco">
           </mat-form-field>
           <mat-form-field class="obs mt-4">
