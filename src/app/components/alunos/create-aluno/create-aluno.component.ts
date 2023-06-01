@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
@@ -12,45 +12,40 @@ import { PlanosService } from 'src/app/services/planos.service';
   templateUrl: './create-aluno.component.html',
   styleUrls: ['./create-aluno.component.scss']
 })
-export class CreateAlunoComponent implements OnInit {
+export class CreateAlunoComponent implements OnInit {  
+
+  dataSource!: MatTableDataSource<PlanoInterface>;
 
   id: any;
 
   selectUnidade: any;
-
-  dataSource!: MatTableDataSource<PlanoInterface>;
 
   ufSelect!: any[];
   selectedValue: any;
   
   masks: any;
 
-  diagnosticos: Array<any> = [
-    {id: 1, select: false, name: 'Depressão'},
-    {id: 2, select: false, name: 'Diabetes'},
-    {id: 3, select: false, name: 'Enxaqueca'},
-    {id: 4, select: false, name: 'Hipertensão'},
-    {id: 5, select: false, name: 'Insônia'},
-    {id: 6, select: false, name: 'Labirintite'}
-  ]
-
-  dia = [
-    'Depressão',
-    'Diabetes',
-    'Enxaqueca',
-    'Hipertensão',
-    'Insônia',
-    'Labirintite'
+  masterSelected: boolean;
+  checkedList: any;
+  diagnosticosList: any = [
+    {id: 1, isSelected: false, value: 'Depressão'},
+    {id: 2, isSelected: false, value: 'Diabetes'},
+    {id: 3, isSelected: false, value: 'Enxaqueca'},
+    {id: 4, isSelected: false, value: 'Hipertensão'},
+    {id: 5, isSelected: false, value: 'Insônia'},
+    {id: 6, isSelected: false, value: 'Labirintite'}
   ];
 
   constructor(
     private aln: AlunosService, 
     private aRoute: ActivatedRoute, 
     private _snackBar: MatSnackBar, 
-    private planoServ: PlanosService,
-    private formBuilder: FormBuilder
+    private planoServ: PlanosService
   ) {
-    this.id = this.aRoute.snapshot.paramMap.get('id');   
+    this.id = this.aRoute.snapshot.paramMap.get('id');
+    this.masterSelected = false;
+    this.diagnosticosList;
+    this.getCheckedItemList(); 
   }
 
   public newPostForm = new FormGroup({
@@ -76,30 +71,21 @@ export class CreateAlunoComponent implements OnInit {
     cirurgiaDetail: new FormControl(''),
     ortopedico: new FormControl(''),
     ortopedicoDetail: new FormControl(''),
-    //diagnosticos: new FormArray([]),
     diagnosticos: new FormControl(''),
-    //diagnosticos: this.formBuilder.array(this.buildDiagnosticos()),
     outrasObsSaude: new FormControl(''),
     outrosHorarios: new FormControl(''),
     outrasAtividades: new FormControl(''),
     razaoEspaco: new FormControl(''),
-    comoConheceu: new FormControl('')        
-  });
-  public diagnostics = new FormGroup({
-    enxaqueca: new FormControl(''),
+    comoConheceu: new FormControl('')     
   });
 
   ngOnInit(): void {
     this.getPlanoForSelect();
     this.esEditar();    
   }
-  
-  buildDiagnosticos() {
-    const values = this.dia.map(v => new FormControl(false));
-    return values;    
-  }
 
-  newAluno(data: any) {
+  newAluno(data: any) { 
+    this.newPostForm.value.diagnosticos = this.checkedList;
     this.aln.saveAluno(data);
     this.newPostForm.reset();
     this.openSnackBar('Aluno cadastrado com sucesso!');
@@ -164,6 +150,26 @@ export class CreateAlunoComponent implements OnInit {
       this.dataSource = new MatTableDataSource<PlanoInterface>(planos);
       this.selectUnidade = this.dataSource.filteredData;
     });    
+  }
+
+  /*
+  As próximas 2 funções insere os itens do checkbox em um array array e faz a 
+  verificação se um item foi selecionado ou não, respectivamente.
+  */
+  getCheckedItemList(){
+    this.checkedList = [];
+    for (var i = 0; i < this.diagnosticosList.length; i++) {
+      if(this.diagnosticosList[i].isSelected)
+      this.checkedList.push(this.diagnosticosList[i].value);
+    }
+    this.checkedList = JSON.stringify(this.checkedList);
+    console.log(this.checkedList, "!!!!!!!!!!!!!!")                        
+  }
+  isAllSelected() {
+    this.masterSelected = this.diagnosticosList.every(function(item:any) {
+      return item.isSelected === true;
+    });
+    this.getCheckedItemList();
   }
 
   openSnackBar(message: string) {

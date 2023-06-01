@@ -1,11 +1,12 @@
 export interface AlunoInterface {
+    test2?: any;
     id?: string,
     nome?: string,
     unidade?: string,
     status?: string,
     plano?: string,
     dataMatricula?: string,
-    dataNascimento?: string,
+    dataNascimento?: Date,
     sexo?: string,
     rg?: string,
     cpf?: string,

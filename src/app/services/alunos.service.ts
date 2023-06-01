@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { AlunoInterface } from '../models/alunos';
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
