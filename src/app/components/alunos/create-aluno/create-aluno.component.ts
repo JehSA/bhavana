@@ -18,6 +18,8 @@ export class CreateAlunoComponent implements OnInit {
 
   id: any;
 
+  test: any[] = [];
+
   selectUnidade: any;
 
   ufSelect!: any[];
@@ -35,6 +37,8 @@ export class CreateAlunoComponent implements OnInit {
     {id: 5, isSelected: false, value: 'Insônia'},
     {id: 6, isSelected: false, value: 'Labirintite'}
   ];
+  diagnosticosListEdit: any;
+  alo: any = [];
 
   constructor(
     private aln: AlunosService, 
@@ -106,10 +110,32 @@ export class CreateAlunoComponent implements OnInit {
       this.aln.updateAluno(id, aluno);
     }
   }
-
+  
   esEditar() {
     if(this.id !== null) {
       this.aln.getAlunoById(this.id).subscribe(data => {
+        
+        //this.diagnosticosList = []
+        var idDiagnosticosEdit: any[] = []
+        this.diagnosticosListEdit = data.payload.data()['diagnosticos'];
+        this.checkedList = this.diagnosticosListEdit;        
+        
+        for(var i = 0; i < this.diagnosticosListEdit.length; i++) {
+          idDiagnosticosEdit.push(this.diagnosticosListEdit[i].id);
+        }        
+        for(const res of this.diagnosticosList) {
+          if(idDiagnosticosEdit.includes(res.id)) {
+            res.isSelected = true;
+          }
+          this.alo.push(Object.assign({}, res))          
+          console.log("RES!!!", res)
+        }
+        this.diagnosticosList = [];
+        //this.diagnosticosList.push(this.alo)
+        this.diagnosticosList = this.diagnosticosList.concat(this.alo);
+        console.log("Volare", this.diagnosticosList);
+        console.log("CheckedEdit", this.checkedList);
+
         this.newPostForm.setValue({
           unidade: data.payload.data()['unidade'],
           status: data.payload.data()['status'],          
@@ -133,7 +159,8 @@ export class CreateAlunoComponent implements OnInit {
           cirurgiaDetail: data.payload.data()['cirurgiaDetail'],
           ortopedico: data.payload.data()['ortopedico'],
           ortopedicoDetail: data.payload.data()['ortopedicoDetail'],
-          diagnosticos: data.payload.data()['diagnosticos'],
+          diagnosticos: this.checkedList,
+          //diagnosticos: data.payload.data()['diagnosticos'],
           outrasObsSaude: data.payload.data()['outrasObsSaude'],
           outrosHorarios: data.payload.data()['outrosHorarios'],
           outrasAtividades: data.payload.data()['outrasAtividades'],        
@@ -158,12 +185,12 @@ export class CreateAlunoComponent implements OnInit {
   */
   getCheckedItemList(){
     this.checkedList = [];
-    for (var i = 0; i < this.diagnosticosList.length; i++) {
-      if(this.diagnosticosList[i].isSelected)
-      this.checkedList.push(this.diagnosticosList[i].value);
+    for(var i = 0; i < this.diagnosticosList.length; i++) {
+      if(this.diagnosticosList[i].isSelected) {
+        this.checkedList.push(this.diagnosticosList[i]);
+      }
     }
-    this.checkedList = JSON.stringify(this.checkedList);
-    console.log(this.checkedList, "!!!!!!!!!!!!!!")                        
+    console.log("CheckedList", this.checkedList);                        
   }
   isAllSelected() {
     this.masterSelected = this.diagnosticosList.every(function(item:any) {

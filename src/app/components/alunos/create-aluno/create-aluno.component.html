@@ -152,7 +152,7 @@
           <p class="pdiag mt-4"><strong>Possui aulgum dos diagnósticos abaixo?</strong></p>
           <div class="mt-4 diagnosticos">            
             <section class="example-section" *ngFor="let n of diagnosticosList">
-              <input type="checkbox" [(ngModel)]="n.isSelected" formControlName="diagnosticos" value="n.value" (change)="isAllSelected()">
+              <input type="checkbox" [(ngModel)]="n.isSelected" formControlName="diagnosticos" (change)="isAllSelected()">
               <p>{{n.value}}</p>
             </section>                       
           </div>
@@ -196,7 +196,3 @@
     </div>    
   </div>
 </div>
-
-<!--pre>
-  {{checkForm.value | json}}
-<pre-->
