@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
@@ -27,29 +27,16 @@ export class CreateAlunoComponent implements OnInit {
   
   masks: any;
 
-  masterSelected: boolean;
-  checkedList: any;
-  diagnosticosList: any = [
-    {id: 1, isSelected: false, value: 'Depressão'},
-    {id: 2, isSelected: false, value: 'Diabetes'},
-    {id: 3, isSelected: false, value: 'Enxaqueca'},
-    {id: 4, isSelected: false, value: 'Hipertensão'},
-    {id: 5, isSelected: false, value: 'Insônia'},
-    {id: 6, isSelected: false, value: 'Labirintite'}
-  ];
-  diagnosticosListEdit: any;
-  alo: any = [];
+  diagnosticos = ['Depressão', 'Diabetes', 'Enxaqueca', 'Hipertensão', 'Insônia', 'Labirintite'];
 
   constructor(
     private aln: AlunosService, 
     private aRoute: ActivatedRoute, 
     private _snackBar: MatSnackBar, 
-    private planoServ: PlanosService
+    private planoServ: PlanosService,
+    private _fb: FormBuilder
   ) {
     this.id = this.aRoute.snapshot.paramMap.get('id');
-    this.masterSelected = false;
-    this.diagnosticosList;
-    this.getCheckedItemList(); 
   }
 
   public newPostForm = new FormGroup({
@@ -74,14 +61,14 @@ export class CreateAlunoComponent implements OnInit {
     cirurgia: new FormControl(''),
     cirurgiaDetail: new FormControl(''),
     ortopedico: new FormControl(''),
-    ortopedicoDetail: new FormControl(''),
-    diagnosticos: new FormControl(''),
+    ortopedicoDetail: new FormControl(''),    
+    diagnosticos: this.buildDiagnosticos(),
     outrasObsSaude: new FormControl(''),
     outrosHorarios: new FormControl(''),
     outrasAtividades: new FormControl(''),
     razaoEspaco: new FormControl(''),
     comoConheceu: new FormControl('')     
-  });
+  });  
 
   ngOnInit(): void {
     this.getPlanoForSelect();
@@ -89,7 +76,6 @@ export class CreateAlunoComponent implements OnInit {
   }
 
   newAluno(data: any) { 
-    this.newPostForm.value.diagnosticos = this.checkedList;
     this.aln.saveAluno(data);
     this.newPostForm.reset();
     this.openSnackBar('Aluno cadastrado com sucesso!');
@@ -111,32 +97,10 @@ export class CreateAlunoComponent implements OnInit {
     }
   }
   
-  esEditar() {
+  esEditar() {    
     if(this.id !== null) {
       this.aln.getAlunoById(this.id).subscribe(data => {
-        
-        //this.diagnosticosList = []
-        var idDiagnosticosEdit: any[] = []
-        this.diagnosticosListEdit = data.payload.data()['diagnosticos'];
-        this.checkedList = this.diagnosticosListEdit;        
-        
-        for(var i = 0; i < this.diagnosticosListEdit.length; i++) {
-          idDiagnosticosEdit.push(this.diagnosticosListEdit[i].id);
-        }        
-        for(const res of this.diagnosticosList) {
-          if(idDiagnosticosEdit.includes(res.id)) {
-            res.isSelected = true;
-          }
-          this.alo.push(Object.assign({}, res))          
-          console.log("RES!!!", res)
-        }
-        this.diagnosticosList = [];
-        //this.diagnosticosList.push(this.alo)
-        this.diagnosticosList = this.diagnosticosList.concat(this.alo);
-        console.log("Volare", this.diagnosticosList);
-        console.log("CheckedEdit", this.checkedList);
-
-        this.newPostForm.setValue({
+        this.newPostForm.patchValue({
           unidade: data.payload.data()['unidade'],
           status: data.payload.data()['status'],          
           plano: data.payload.data()['plano'],
@@ -159,13 +123,12 @@ export class CreateAlunoComponent implements OnInit {
           cirurgiaDetail: data.payload.data()['cirurgiaDetail'],
           ortopedico: data.payload.data()['ortopedico'],
           ortopedicoDetail: data.payload.data()['ortopedicoDetail'],
-          diagnosticos: this.checkedList,
-          //diagnosticos: data.payload.data()['diagnosticos'],
+          diagnosticos: data.payload.data()['diagnosticos'],
           outrasObsSaude: data.payload.data()['outrasObsSaude'],
           outrosHorarios: data.payload.data()['outrosHorarios'],
           outrasAtividades: data.payload.data()['outrasAtividades'],        
           razaoEspaco: data.payload.data()['razaoEspaco'],
-          comoConheceu: data.payload.data()['comoConheceu']     
+          comoConheceu: data.payload.data()['comoConheceu']      
         });
       });
     }
@@ -173,30 +136,19 @@ export class CreateAlunoComponent implements OnInit {
  
   getPlanoForSelect() {
     this.selectUnidade = this.planoServ.getAllPlanos()
-    .subscribe(planos => {
+    .subscribe((planos: PlanoInterface[] | undefined) => {
       this.dataSource = new MatTableDataSource<PlanoInterface>(planos);
       this.selectUnidade = this.dataSource.filteredData;
     });    
   }
 
-  /*
-  As próximas 2 funções insere os itens do checkbox em um array array e faz a 
-  verificação se um item foi selecionado ou não, respectivamente.
-  */
-  getCheckedItemList(){
-    this.checkedList = [];
-    for(var i = 0; i < this.diagnosticosList.length; i++) {
-      if(this.diagnosticosList[i].isSelected) {
-        this.checkedList.push(this.diagnosticosList[i]);
-      }
-    }
-    console.log("CheckedList", this.checkedList);                        
+  /* As duas funções que seguem são responsáveis pelo funcionamento do array de diagnósticos no formulário */
+  buildDiagnosticos() {
+    const values = this.diagnosticos.map(v => new FormControl(false));
+    return this._fb.array(values);
   }
-  isAllSelected() {
-    this.masterSelected = this.diagnosticosList.every(function(item:any) {
-      return item.isSelected === true;
-    });
-    this.getCheckedItemList();
+  getDiagnosticosControls() {
+    return this.newPostForm.get('diagnosticos') ? (<FormArray>this.newPostForm.get('diagnosticos')).controls : null;
   }
 
   openSnackBar(message: string) {

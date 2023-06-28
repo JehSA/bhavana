@@ -1,5 +1,4 @@
 export interface AlunoInterface {
-    test2?: any;
     id?: string,
     nome?: string,
     unidade?: string,

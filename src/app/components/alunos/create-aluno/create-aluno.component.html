@@ -149,22 +149,19 @@
             <mat-label>Detalhes</mat-label>
             <input matInput formControlName="ortopedicoDetail">
           </mat-form-field>
-          <p class="pdiag mt-4"><strong>Possui aulgum dos diagnósticos abaixo?</strong></p>
-          <div class="mt-4 diagnosticos">            
-            <section class="example-section" *ngFor="let n of diagnosticosList">
-              <input type="checkbox" [(ngModel)]="n.isSelected" formControlName="diagnosticos" (change)="isAllSelected()">
-              <p>{{n.value}}</p>
-            </section>                       
+          <p for="diagnosticos" class="pdiag mt-4"><strong>Possui aulgum dos diagnósticos abaixo?</strong></p>
+          <div id="diagnosticos" class="mt-4 diagnosticos">
+            <div class="checkbox" formArrayName="diagnosticos" *ngFor="let item of getDiagnosticosControls(); let i = index">
+              <label class="checkbox-inline">
+                <input type="checkbox" [formControlName]="i"> {{ diagnosticos[i] }}
+              </label>
+            </div>
           </div>
-          <mat-form-field class="obs">  
-            <mat-label>Detalhes</mat-label>
-            <input matInput formControlName="ortopedicoDetail">
-          </mat-form-field>
           <p class="pdiag mt-4"><strong>Outras observações de saúde...</strong></p>
           <mat-form-field class="obs">            
             <mat-label>Detalhes</mat-label>
             <input matInput formControlName="outrasObsSaude">
-          </mat-form-field>               
+          </mat-form-field>
         </form>
       </mat-tab>
       <mat-tab label="Pesquisa Bhavana">
