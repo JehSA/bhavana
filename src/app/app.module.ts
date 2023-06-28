@@ -18,6 +18,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatCardModule} from '@angular/material/card';
 
 // Firebase services + environment module
 import { AngularFireModule } from '@angular/fire/compat';
@@ -45,8 +47,9 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PlanosComponent } from './components/planos/planos.component';
 import { CreatePlanoComponent } from './components/planos/create-plano/create-plano.component';
+import { CreateProfessorComponent } from './components/professores/create-professor/create-professor.component';
 
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
@@ -64,6 +67,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     SpinnerComponent,
     PlanosComponent,
     CreatePlanoComponent,
+    CreateProfessorComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +95,9 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     NgxMaskModule.forRoot(),
     MatRadioModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule,
+    MatCardModule
   ],
   providers: [AngularFireAuth, AngularFirestore, AuthGuard, MatDatepickerModule],
   bootstrap: [AppComponent]

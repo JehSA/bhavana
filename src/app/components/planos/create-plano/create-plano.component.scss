@@ -1,0 +1,22 @@
+.container {
+    align-items: center;
+}
+.form {
+    margin-top: 5%;
+}
+mat-form-field {
+    width: 30%;
+    margin-left: 2%;
+}
+.container-button {
+    margin-top: 3%;
+    margin-left: 3%;
+    text-align: right;
+}
+.btns {
+    display: flex;
+    justify-content: flex-end;
+}
+.container-button {
+    margin-left: 1%;
+}

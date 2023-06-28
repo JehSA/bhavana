@@ -1,0 +1,25 @@
+.home {
+    text-align: center;
+}
+.cards   {
+    margin-left: 5%;    
+    justify-content: center;
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 3%;
+}
+.example-card {
+    background-color: beige;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 100px;
+    margin-bottom: 8px;
+}
+i {
+    padding-left: 2%;
+}

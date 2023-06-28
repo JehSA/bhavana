@@ -18,8 +18,6 @@ export class CreateAlunoComponent implements OnInit {
 
   id: any;
 
-  test: any[] = [];
-
   selectUnidade: any;
 
   ufSelect!: any[];

@@ -1,12 +1,16 @@
-<p *ngIf="mostraMenu">
-  <mat-toolbar>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Bhavana App</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <i class="fa-solid fa-right-from-bracket fa-lg" style="color: #ffffff;"></i>
-    </button>
-  </mat-toolbar>
-</p>
+<mat-toolbar>
+  <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <p mat-menu-item routerLink="/home">Home</p>
+    <p mat-menu-item routerLink="/alunos">Alunos</p>
+    <p mat-menu-item routerLink="/professores">Professores</p>
+    <p mat-menu-item routerLink="/planos">Planos</p>
+  </mat-menu>
+  <span class="title" routerLink="/home">Bhavana App</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" (click)="logout()">
+    <i class="fa-solid fa-right-from-bracket fa-lg" style="color: #ffffff;"></i>
+  </button>
+</mat-toolbar>

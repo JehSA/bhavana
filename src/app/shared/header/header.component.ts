@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { auth } from 'firebase-admin';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 @Component({
   selector: 'app-header',
@@ -10,18 +10,23 @@ import { auth } from 'firebase-admin';
 })
 export class HeaderComponent implements OnInit {
 
-  dataUser: any;
+  mostraMenu: boolean = false;
 
-  mostraMenu: boolean;
+  constructor(private router: Router, private afAuth: AngularFireAuth, private guard: AuthGuard) { 
+  }
 
-  constructor(private router: Router, private afAuth: AngularFireAuth) { 
-    this.mostraMenu = false;
+  logout() {
+    //location.reload();
+    this.afAuth.signOut()
+      .then(() => location.reload())
+      .then(() => this.router.navigate(['/login']))
+      
   }
 
   ngOnInit(): void {
-    this.viewNavBar();
   }
 
+  
   viewNavBar() {
     this.afAuth.currentUser.then(user => {
       if(user && user.emailVerified) {
@@ -29,9 +34,10 @@ export class HeaderComponent implements OnInit {
         this.mostraMenu = true;
       } else {
         this.mostraMenu = false;
-        //this.router.navigate(['/login']);
+        this.router.navigate(['/login']);
       }
     });
   }
+  
 
 }

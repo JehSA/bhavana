@@ -1,4 +1,4 @@
-<div class="new-post-container container">
+<div class="new-post-container container divInicio">
   <h1><strong>Cadastro de Aluno</strong></h1>
   <div class="body">    
     <mat-tab-group animationDuration="2000ms">      
@@ -185,11 +185,16 @@
         </form>
       </mat-tab>
     </mat-tab-group>
-    <div class="container-button" *ngIf="!id">
-      <input type="submit" class="mat-flat-button" value="Save" (click)="newAluno(newPostForm.value)">
-    </div>
-    <div class="container-button" *ngIf="id">
-      <input type="submit" class="mat-flat-button" value="Edit" (click)="editAluno(id, newPostForm.value)">
-    </div>    
+    <div class="btns">
+      <div class="container-button">
+        <input type="submit" class="btn btn-secondary" value="Back" routerLink="/alunos">
+      </div>
+      <div class="container-button" *ngIf="!id">
+        <input type="submit" class="btn btn-dark" value="Save" (click)="newAluno(newPostForm.value)">
+      </div>
+      <div class="container-button" *ngIf="id">
+        <input type="submit" class="btn btn-dark" value="Edit" (click)="editAluno(id, newPostForm.value)">
+      </div>
+    </div>        
   </div>
 </div>

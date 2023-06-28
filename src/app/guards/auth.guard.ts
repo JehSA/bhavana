@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
@@ -7,6 +7,8 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+
+  menu = new EventEmitter<boolean>();
   
   constructor(private afAuth: AngularFireAuth, private router: Router, private _snackBar: MatSnackBar) {}
 
@@ -17,9 +19,11 @@ export class AuthGuard implements CanActivate {
     const user = this.afAuth.currentUser;
     const isAuthenticated = await user ? true : false;
     if(!isAuthenticated) {
-       this.router.navigate(['/login']);
-       this.openSnackBar();
+      this.menu.emit(false);
+      this.router.navigate(['/login']);      
+      this.openSnackBar();
     }
+    this.menu.emit(true);
     return isAuthenticated;
   }
 

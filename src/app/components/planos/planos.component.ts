@@ -15,7 +15,7 @@ import * as XLSX from 'xlsx';
 })
 export class PlanosComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'unidade', 'desdricao', 'valor', 'actions'];
+  displayedColumns: string[] = ['unidade', 'descricao', 'valor', 'actions'];
   dataSource!: MatTableDataSource<PlanoInterface>;
 
   title = 'angular-app';

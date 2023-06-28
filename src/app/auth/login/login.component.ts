@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 import { FirebaseCodeErrorsService } from 'src/app/services/firebase-code-errors.service';
 
 @Component({
@@ -21,15 +22,17 @@ export class LoginComponent implements OnInit {
     private afAuth: AngularFireAuth, 
     private _snackBar: MatSnackBar,
     private router: Router,
-    private firebaseError: FirebaseCodeErrorsService
+    private firebaseError: FirebaseCodeErrorsService,
+    private guard: AuthGuard
   ) {
     this.userLogin = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-    })
+    });
   }
 
   ngOnInit(): void {
+    this.guard.menu.emit(false);
   }
 
   login() {

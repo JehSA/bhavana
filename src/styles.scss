@@ -9,6 +9,19 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
 
+.mat-sort-header-container {
+    justify-content: center;
+}
+th.mat-header-cell {
+    text-align: center;
+}
+
+.divInicio {
+    margin-top: 8%;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
 // Default style of system alert messages 
 .snackBarSucess {
     background-color: rgb(111, 219, 111);

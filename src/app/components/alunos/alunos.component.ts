@@ -14,7 +14,7 @@ import * as XLSX from 'xlsx';
 })
 export class AlunosComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'email', 'actions'];
+  displayedColumns: string[] = ['status', 'nome', 'unidade', 'email', 'celular', 'telefone', 'actions'];
   dataSource!: MatTableDataSource<AlunoInterface>;
 
   title = 'angular-app';

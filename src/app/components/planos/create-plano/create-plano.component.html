@@ -1,1 +1,34 @@
-<p>create-plano works!</p>
+<div class="new-post-container container divInicio">
+  <h1><strong>Cadastro de Plano</strong></h1>
+  <div class="body">
+      <form [formGroup]="newPostForm" class="form">
+        <mat-form-field class="lineOneForm">
+          <mat-label>Unidade</mat-label>
+          <select matNativeControl formControlName="unidade">
+            <option label=""></option>
+            <option value="São Miguel">São Miguel</option>
+            <option value="Tatuapé">Tatuapé</option>
+          </select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Descrição</mat-label>
+          <input matInput formControlName="descricao">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Valor</mat-label>
+          <input matInput formControlName="valor">
+        </mat-form-field>                             
+      </form>       
+    <div class="btns">
+      <div class="container-button">
+        <input type="submit" class="btn btn-secondary" value="Back" routerLink="/planos">
+      </div>
+      <div class="container-button" *ngIf="!id">
+        <input type="submit" class="btn btn-dark" value="Save" (click)="newPlano(newPostForm.value)">
+      </div>
+      <div class="container-button" *ngIf="id">
+        <input type="submit" class="btn btn-dark" value="Edit" (click)="editPlano(id, newPostForm.value)">
+      </div>
+    </div>        
+  </div>
+</div>

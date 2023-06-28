@@ -1,5 +1,4 @@
 .container {
-    margin-top: 7%;
     align-items: center;
 }
 .form {
@@ -37,4 +36,11 @@ mat-form-field {
     justify-content: space-between;
     max-width: 94%;
     margin-left: 2%;
+}
+.btns {
+    display: flex;
+    justify-content: flex-end;
+}
+.container-button {
+    margin-left: 1%;
 }
