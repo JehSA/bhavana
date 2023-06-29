@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { PlanoInterface } from 'src/app/models/planos';
@@ -32,7 +32,7 @@ export class PlanosComponent implements OnInit {
   public planos: any = [];
   public plano = ''; 
 
-  constructor(private planoService: PlanosService, private afs: AngularFirestore) { }
+  constructor(private planoService: PlanosService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getAllPlanos();
@@ -49,8 +49,8 @@ export class PlanosComponent implements OnInit {
   }
 
   deletePlano(id: string) {
-    this.planoService.deletePlano(id).then(() => {
-    });
+    this.planoService.deletePlano(id).then(() => {});
+    this.openSnackBarFail("Plano excluído com sucesso!")
   }
 
   applyFilter(event: Event) {
@@ -71,6 +71,15 @@ export class PlanosComponent implements OnInit {
  
     /* save to file */  
     XLSX.writeFile(wb, this.fileName); 
+  }
+
+  openSnackBarFail(message: string) {
+    this._snackBar.open(message, '', {
+      duration: 5000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['snackBarFail']
+    });
   }
 
 }

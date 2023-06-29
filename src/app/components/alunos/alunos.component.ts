@@ -4,8 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AlunoInterface } from 'src/app/models/alunos';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import * as XLSX from 'xlsx';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-alunos',
@@ -23,7 +23,7 @@ export class AlunosComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
 
-  constructor(private alunoService: AlunosService, private afs: AngularFirestore) { }
+  constructor(private alunoService: AlunosService, private _snackBar: MatSnackBar) { }
 
   length!: number;
   pageSize = 10;
@@ -57,8 +57,8 @@ export class AlunosComponent implements OnInit {
   }
 
   deleteAluno(id: string) {
-    this.alunoService.deleteAluno(id).then(() => {
-    });
+    this.alunoService.deleteAluno(id).then(() => {});
+    this.openSnackBarFail("Aluno excluído com sucesso!")
   }
 
   exportToExcel(): void {
@@ -71,6 +71,15 @@ export class AlunosComponent implements OnInit {
  
     /* save to file */  
     XLSX.writeFile(wb, this.fileName); 
+  }
+
+  openSnackBarFail(message: string) {
+    this._snackBar.open(message, '', {
+      duration: 5000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['snackBarFail']
+    });
   }
 
 }

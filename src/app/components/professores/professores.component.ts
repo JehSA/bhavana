@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProfessorInterface } from 'src/app/models/professores';
@@ -32,7 +32,7 @@ export class ProfessoresComponent implements OnInit {
   public professores: any = [];
   public professor = ''; 
 
-  constructor(private pfs: ProfessoresService, private afs: AngularFirestore) { }
+  constructor(private pfs: ProfessoresService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getAllProfessores();
@@ -49,8 +49,8 @@ export class ProfessoresComponent implements OnInit {
   }
 
   deleteProfessor(id: string) {
-    this.pfs.deleteProfessor(id).then(() => {
-    });
+    this.pfs.deleteProfessor(id).then(() => {});
+    this.openSnackBarFail("Professor excluído com sucesso!")
   }
 
   applyFilter(event: Event) {
@@ -71,6 +71,15 @@ export class ProfessoresComponent implements OnInit {
  
     /* save to file */  
     XLSX.writeFile(wb, this.fileName); 
+  }
+
+  openSnackBarFail(message: string) {
+    this._snackBar.open(message, '', {
+      duration: 5000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['snackBarFail']
+    });
   }
 
 }
