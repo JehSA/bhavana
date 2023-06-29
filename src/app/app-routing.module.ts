@@ -11,6 +11,7 @@ import { RecoverPasswordComponent } from './auth/recover-password/recover-passwo
 import { AuthGuard } from './guards/auth.guard';
 import { PlanosComponent } from './components/planos/planos.component';
 import { CreatePlanoComponent } from './components/planos/create-plano/create-plano.component';
+import { CreateProfessorComponent } from './components/professores/create-professor/create-professor.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,10 +23,12 @@ const routes: Routes = [
   { path: 'alunos', component: AlunosComponent, canActivate: [AuthGuard] },  
   { path: 'create-aluno', component: CreateAlunoComponent, canActivate: [AuthGuard] },
   { path: 'edit-aluno/:id', component: CreateAlunoComponent, canActivate: [AuthGuard] },
-  { path: 'planos', component: PlanosComponent },
-  { path: 'create-plano', component: CreatePlanoComponent },
-  { path: 'edit-plano/:id', component: CreatePlanoComponent },
+  { path: 'planos', component: PlanosComponent, canActivate: [AuthGuard] },
+  { path: 'create-plano', component: CreatePlanoComponent, canActivate: [AuthGuard] },
+  { path: 'edit-plano/:id', component: CreatePlanoComponent, canActivate: [AuthGuard] },
   { path: 'professores', component: ProfessoresComponent, canActivate: [AuthGuard] },
+  { path: 'create-professor', component: CreateProfessorComponent, canActivate: [AuthGuard] },
+  { path: 'edit-professor/:id', component: CreateProfessorComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

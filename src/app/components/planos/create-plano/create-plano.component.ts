@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { PlanoInterface } from 'src/app/models/planos';
-import { AlunosService } from 'src/app/services/alunos.service';
 import { PlanosService } from 'src/app/services/planos.service';
 
 @Component({
@@ -23,9 +22,7 @@ export class CreatePlanoComponent implements OnInit {
   constructor(
     private pln: PlanosService, 
     private aRoute: ActivatedRoute, 
-    private _snackBar: MatSnackBar, 
-    private planoServ: PlanosService,
-    private _fb: FormBuilder
+    private _snackBar: MatSnackBar
   ) {
     this.id = this.aRoute.snapshot.paramMap.get('id');
   }

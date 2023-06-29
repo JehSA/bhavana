@@ -1,1 +1,51 @@
-<p>create-professor works!</p>
+<div class="new-post-container container divInicio">
+  <h1><strong>Cadastro de Professor</strong></h1>
+  <div class="body">
+    <form [formGroup]="newPostForm" class="form">
+      <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Celular</mat-label>
+        <input matInput formControlName="celular" [mask]="'(00) 0 0000-0000'">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>E-mail</mat-label>
+        <input type="email" matInput formControlName="email">
+      </mat-form-field>            
+      <mat-form-field class="lineOneForm">
+        <mat-label>Unidade</mat-label>
+        <select matNativeControl formControlName="unidade">
+          <option label=""></option>
+          <option value="São Miguel">São Miguel</option>
+          <option value="Tatuapé">Tatuapé</option>
+          <option value="Ambas">Ambas</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field class="lineOneForm">
+        <mat-label>Status</mat-label>
+        <select matNativeControl formControlName="status">
+          <option label=""></option>
+          <option value="Ativo">Ativo</option>
+          <option value="Inativo">Inativo</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Obs.:</mat-label>
+        <input matInput formControlName="obs">
+      </mat-form-field>                             
+    </form>       
+    <div class="btns">
+      <div class="container-button">
+        <input type="submit" class="btn btn-secondary" value="Back" routerLink="/professores">
+      </div>
+      <div class="container-button" *ngIf="!id">
+        <input type="submit" class="btn btn-dark" value="Save" (click)="newProfessor(newPostForm.value)">
+      </div>
+      <div class="container-button" *ngIf="id">
+        <input type="submit" class="btn btn-dark" value="Edit" (click)="editProfessor(id, newPostForm.value)">
+      </div>
+    </div>        
+  </div>
+</div>

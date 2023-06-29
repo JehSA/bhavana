@@ -3,7 +3,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AlunoInterface } from 'src/app/models/alunos';
 import { PlanoInterface } from 'src/app/models/planos';
 import { PlanosService } from 'src/app/services/planos.service';
 import * as XLSX from 'xlsx';
