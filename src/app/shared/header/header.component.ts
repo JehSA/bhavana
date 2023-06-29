@@ -16,16 +16,14 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    //location.reload();
     this.afAuth.signOut()
       .then(() => location.reload())
-      .then(() => this.router.navigate(['/login']))
-      
+      .then(() => this.router.navigate(['/login']));      
   }
 
   ngOnInit(): void {
+    this.viewNavBar();
   }
-
   
   viewNavBar() {
     this.afAuth.currentUser.then(user => {
@@ -37,7 +35,6 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     });
-  }
-  
+  } 
 
 }
