@@ -73,7 +73,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   openSnackBarInfo() {
-    this._snackBar.open('Usuário cadastrado! Aguarge a liberação do administrador.', '', {
+    this._snackBar.open('Usuário cadastrado! Verifique o seu email.', '', {
       duration: 5000,
       horizontalPosition: 'right',
       verticalPosition: 'top',

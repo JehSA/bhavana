@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
   viewNavBar() {
     this.afAuth.currentUser.then(user => {
       if(user && user.emailVerified) {
-        console.log(user.emailVerified)
         this.mostraMenu = true;
       } else {
         this.mostraMenu = false;
